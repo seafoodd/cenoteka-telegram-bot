@@ -1,0 +1,4 @@
+beautifulsoup4==4.12.3
+pyTelegramBotAPI==4.18.1
+python-dotenv==1.0.1
+transliterate==1.10.2
