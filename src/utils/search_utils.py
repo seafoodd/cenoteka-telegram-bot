@@ -1,37 +1,9 @@
-from dotenv import load_dotenv
-import os
-import time
-import telebot
-from bs4 import BeautifulSoup
 from urllib.request import Request, urlopen
 from transliterate import translit
-
-load_dotenv()
-
-TOKEN = os.getenv('TOKEN')
-bot = telebot.TeleBot(TOKEN)
-
-MESSAGE_COOLDOWN = float(os.getenv('MESSAGE_COOLDOWN'))
-BAN_TIME = float(os.getenv('BAN_TIME'))
-
-last_message_time = {}
-message_count_when_limit_reached = {}
-banned_until = {}
-
-
-@bot.message_handler(commands=['start'])
-def handle_start(message) -> None:
-    bot.send_message(message.chat.id, "Привет! Я бот, который поможет вам найти товары на Cenoteka.")
-
-
-@bot.message_handler(commands=['search'])
-def handle_search_command(message) -> None:
-    bot.send_message(message.chat.id, "Введите название товара, который хотите найти.")
-
-
-@bot.message_handler(commands=['help'])
-def handle_help_command(message) -> None:
-    bot.send_message(message.chat.id, "Для поиска товара введите название товара, который хотите найти.")
+from bs4 import BeautifulSoup
+from src.bot_init import last_message_time, message_count_when_limit_reached
+from src.utils.message_utils import handle_spamming, send_message
+import time
 
 
 def get_icon(price_div):
@@ -86,31 +58,7 @@ def get_price_shop_list(product):
     return price_shop_list
 
 
-def handle_spamming(user_id) -> bool:
-    # if the user is banned, ignore their messages
-    if user_id in banned_until and banned_until[user_id] > time.time():
-        bot.send_message(user_id,
-                         f"До окончания блокировки осталось {int(banned_until[user_id] - time.time())} секунд.")
-        return False
-
-    # rate limiting
-    if user_id in last_message_time and time.time() - last_message_time[user_id] < MESSAGE_COOLDOWN:
-        bot.send_message(user_id,
-                         f"Подождите, пока не прошло {MESSAGE_COOLDOWN} секунд с момента последнего сообщения.")
-        message_count_when_limit_reached[user_id] = message_count_when_limit_reached.get(user_id, 0) + 1
-
-        # If the user has sent too many messages in the cooldown period, ban them for a certain time
-        if message_count_when_limit_reached[user_id] > 5:  # Adjust this value as needed
-            banned_until[user_id] = time.time() + BAN_TIME
-            bot.send_message(user_id,
-                             f"Вы были заблокированы на {BAN_TIME} секунд из-за слишком большого количества сообщений.")
-
-        return False
-    return True
-
-
-@bot.message_handler(func=lambda message: True)
-def handle_search(message):
+def search_products(message):
     user_id = message.chat.id
 
     if handle_spamming(user_id) is False:
@@ -135,7 +83,7 @@ def handle_search(message):
 
         # if there are no products, send the message to the user and print message
         if not products:
-            bot.send_message(message.chat.id, "Ничего не найдено.")
+            send_message(message.chat.id, "Ничего не найдено.")
             print("Ничего не найдено.")
             return
 
@@ -157,12 +105,8 @@ def handle_search(message):
 
         # sending the message to the user and printing the message to the console
         print(message_text)
-        bot.send_message(message.chat.id, message_text)
+        send_message(message.chat.id, message_text)
 
     except Exception as e:
-        bot.send_message(message.chat.id, "Произошла ошибка.")
+        send_message(message.chat.id, "Произошла ошибка.")
         print(e)
-
-
-if __name__ == '__main__':
-    bot.infinity_polling()
