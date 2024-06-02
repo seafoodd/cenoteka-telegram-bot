@@ -1,6 +1,6 @@
-from src.bot_init import bot
-from src.utils.search_utils import search_products
-from src.utils.message_utils import send_message
+from bot_init import bot
+from utils.search_utils import search_products
+from utils.message_utils import send_message
 
 @bot.message_handler(commands=['start'])
 def handle_start(message) -> None:
