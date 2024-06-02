@@ -25,7 +25,7 @@ def handle_help(message) -> None:
 def handle_info(message) -> None:
     about_message = (
         "Hello! This bot was developed to help you find products on Cenoteka.\n\n"
-        "The bot is open source and you can find its code at [GitHub](https://github.com/seafoodd/cenoteka-telegram-bot).\n"
+        "The bot is open source and you can find its code at https://github.com/seafoodd/cenoteka-telegram-bot.\n"
         "If you want to contribute to its development, feel free to make a pull request.\n"
         "Happy shopping!🌟"
     )
