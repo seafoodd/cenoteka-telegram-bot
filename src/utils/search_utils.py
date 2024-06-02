@@ -1,8 +1,8 @@
 from urllib.request import Request, urlopen
 from transliterate import translit
 from bs4 import BeautifulSoup
-from src.bot_init import last_message_time, message_count_when_limit_reached
-from src.utils.message_utils import handle_spamming, send_message
+from bot_init import last_message_time, message_count_when_limit_reached
+from .message_utils import handle_spamming, send_message
 import time
 
 
