@@ -83,8 +83,8 @@ def search_products(message):
 
         # if there are no products, send the message to the user and print message
         if not products:
-            send_message(message.chat.id, "Ничего не найдено.")
-            print("Ничего не найдено.")
+            send_message(message.chat.id, "Nothing found.")
+            print("Nothing found.")
             return
 
         # getting product name, discount and prices from each product
@@ -96,10 +96,10 @@ def search_products(message):
             price_shop_list = get_price_shop_list(product)
 
             # adding product name, discount and prices to the message
-            message_text += f'Товар: {product_name.strip()}\n'
-            message_text += f'Скидка: {discount.strip()}\n'
+            message_text += f'Product: {product_name.strip()}\n'
+            message_text += f'Discount: {discount.strip()}\n'
             for icon, shop, price in price_shop_list:
-                message_text += f'{icon} {shop}, Цена: {price}\n'
+                message_text += f'{icon} {shop}, Price: {price}\n'
 
             message_text += '\n' * 2
 
@@ -108,5 +108,5 @@ def search_products(message):
         send_message(message.chat.id, message_text)
 
     except Exception as e:
-        send_message(message.chat.id, "Произошла ошибка.")
+        send_message(message.chat.id, "An error has occurred.")
         print(e)
