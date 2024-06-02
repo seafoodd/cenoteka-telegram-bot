@@ -6,8 +6,6 @@ from src.bot_init import bot, banned_until, last_message_time, message_count_whe
 def handle_spamming(user_id) -> bool:
     # if the user is banned, ignore their messages
     if user_id in banned_until and banned_until[user_id] > time.time():
-        send_message(user_id,
-                     f"There are {int(banned_until[user_id] - time.time())} seconds left until the ban ends.")
         return False
 
     # rate limiting
