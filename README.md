@@ -25,7 +25,7 @@ pip install -r requirements.txt
 3. Create a `.env` file in the root directory of the project and add the following environment variables:
 
 ```dotenv
-TOKEN='your-bot-token'
+TOKEN='$YOUR-BOT-TOKEN'
 MESSAGE_COOLDOWN=5
 BAN_TIME=60
 ```
@@ -35,18 +35,12 @@ BAN_TIME=60
 To start the bot, run the following command:
 
 ```bash
-python -m src.main # you have to run it from the root directory
+cd src
+python main.py
 ```
 
 Then, you can interact with the bot using the supported commands.
 
-## Testing
-
-To run the tests, use the following command:
-
-```bash
-python -m unittest discover tests
-```
 
 ## Contributing
 
