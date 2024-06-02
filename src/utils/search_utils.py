@@ -102,7 +102,7 @@ def search_products(message):
             message_text += f'Product: {product_name.strip()}\n'
             message_text += f'Discount: {discount.strip()}\n'
             for icon, shop, price in price_shop_list:
-                message_text += f'{icon} {shop}, Price: {price}\n'
+                message_text += f'{icon} {shop}, Price: {price} rsd\n'
 
             message_text += '\n' * 2
 
