@@ -1,5 +1,5 @@
 import time
-from bot_init import bot, banned_until, last_message_time, message_count_when_limit_reached, MESSAGE_COOLDOWN, \
+from src.bot_init import bot, banned_until, last_message_time, message_count_when_limit_reached, MESSAGE_COOLDOWN, \
     BAN_TIME
 
 

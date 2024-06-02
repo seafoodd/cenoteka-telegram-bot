@@ -35,7 +35,7 @@ BAN_TIME=60
 To start the bot, run the following command:
 
 ```bash
-python src/main.py
+python -m src.main # you have to run it from the root directory
 ```
 
 Then, you can interact with the bot using the supported commands.
