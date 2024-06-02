@@ -88,7 +88,6 @@ def search_products(message):
         # if there are no products, send the message to the user and print message
         if not products:
             send_message(message.chat.id, "Nothing found.")
-            print("Nothing found.")
             return
 
         # getting product name, discount and prices from each product
@@ -112,4 +111,4 @@ def search_products(message):
 
     except Exception as e:
         send_message(message.chat.id, "An error has occurred.")
-        print(e)
+        print(f"SEARCH ERROR: {e}")
