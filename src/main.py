@@ -6,11 +6,11 @@ from utils.message_utils import send_message
 @bot.message_handler(commands=['start', 'menu'])
 def handle_start(message) -> None:
     instructions = (
-        "Hello! I'm a bot that will help you find products on Cenoteka.\n"
+        "Hello! I'm a bot that will help you find products on Cenoteka.\n\n"
         "Here's how you can use me:\n"
-        "- To search for a product, simply type the name of the product.\n"
-        "- If you need help, type /help.\n"
-        "Happy shopping!"
+        "├ To search for a product, simply type the name of the product.\n"
+        "└ If you need help, type /help.\n\n"
+        "Happy shopping!🌟"
     )
     send_message(message.chat.id, instructions)
 
