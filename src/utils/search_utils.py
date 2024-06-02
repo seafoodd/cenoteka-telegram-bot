@@ -3,7 +3,10 @@ from transliterate import translit
 from bs4 import BeautifulSoup
 from bot_init import last_message_time, message_count_when_limit_reached
 from .message_utils import handle_spamming, send_message
+from .logging_utils import send_search_log, configure_logging
 import time
+
+configure_logging()
 
 
 def get_icon(price_div):
@@ -60,8 +63,7 @@ def get_price_shop_list(product):
 
 def search_products(message):
     user_id = message.chat.id
-
-    if handle_spamming(user_id) is False:
+    if handle_spamming(message) is False:
         return
 
     last_message_time[user_id] = time.time()
@@ -70,7 +72,9 @@ def search_products(message):
     try:
         # getting a search query from user
         search_query = get_search_query(message)
+
         url = f'https://cenoteka.rs/pretraga/?s={search_query}'
+        send_search_log(message, search_query)
 
         # getting html page
         webpage = get_webpage(url)
@@ -104,7 +108,6 @@ def search_products(message):
             message_text += '\n' * 2
 
         # sending the message to the user and printing the message to the console
-        print(message_text)
         send_message(message.chat.id, message_text)
 
     except Exception as e:

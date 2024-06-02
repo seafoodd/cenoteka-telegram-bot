@@ -1,9 +1,13 @@
 import time
 from bot_init import bot, banned_until, last_message_time, message_count_when_limit_reached, MESSAGE_COOLDOWN, \
     BAN_TIME
+from .logging_utils import send_ban_log, configure_logging
+
+configure_logging()
 
 
-def handle_spamming(user_id) -> bool:
+def handle_spamming(message) -> bool:
+    user_id = message.chat.id
     # if the user is banned, ignore their messages
     if user_id in banned_until and banned_until[user_id] > time.time():
         return False
@@ -21,6 +25,7 @@ def handle_spamming(user_id) -> bool:
             banned_until[user_id] = time.time() + BAN_TIME
             send_message(user_id,
                          f"You were banned for {BAN_TIME} seconds due to too many messages.")
+            send_ban_log(message, BAN_TIME)
 
         return False
     return True
