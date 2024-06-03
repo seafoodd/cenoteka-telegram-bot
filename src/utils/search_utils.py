@@ -1,4 +1,4 @@
-from urllib.request import Request, urlopen
+from urllib.request import Request, urlopen, urlparse, quote
 from transliterate import translit
 from bs4 import BeautifulSoup
 from bot_init import last_message_time, message_count_when_limit_reached
@@ -72,9 +72,9 @@ def search_products(message):
     try:
         # getting a search query from user
         search_query = get_search_query(message)
-
-        url = f'https://cenoteka.rs/pretraga/?s={search_query}'
         send_search_log(message, search_query)
+        search_query = quote(search_query)
+        url = f'https://cenoteka.rs/pretraga/?s={search_query}'
 
         # getting html page
         webpage = get_webpage(url)
