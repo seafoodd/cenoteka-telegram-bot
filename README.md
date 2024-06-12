@@ -16,7 +16,11 @@ This is a Python-based telegram bot that helps users find best prices for the pr
 ## Installation
 
 1. Clone this repository
-2. Install the required dependencies using pip:
+```bash
+git clone https://github.com/seafoodd/cenoteka-telegram-bot
+cd cenoteka-telegram-bot
+```
+3. Install the required dependencies using pip:
 
 ```bash
 pip install -r requirements.txt
